@@ -1,7 +1,8 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Login from '../pages/auth/Login'
-import Signin from '../pages/auth/Signup'
+
+import { Route, Routes } from 'react-router-dom';
+
+import Login from '../pages/auth/Login';
+import Signin from '../pages/auth/Signup';
 
 function Routing() {
   return (
@@ -11,7 +12,7 @@ function Routing() {
         <Route path="/signin" element={<Signin/>}/>
     </Routes>
    </>
-  )
+  );
 }
 
-export default Routing
+export default Routing;

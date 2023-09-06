@@ -1,16 +1,21 @@
 
-import './App.css'
-import Login from './pages/auth/Login'
-import Routing from './router/Routing'
+import "./App.css";
+
+import Routing from "./router/Routing";
+
+
+
+
+
 
 function App() {
 
 
   return (
     <>
-      <Routing/>
+     <Routing/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

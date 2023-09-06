@@ -4,7 +4,7 @@ const initialState = {
     role : localStorage.getItem("role") || "",
     data : localStorage.getItem("data") || {},
     isLoggedIn : localStorage.getItem("isLoggedIn") || false
-}
+};
 
 
 const authSlice = createSlice({
@@ -14,4 +14,4 @@ const authSlice = createSlice({
 });
 
 
-export default authSlice.reducer
+export default authSlice.reducer;
