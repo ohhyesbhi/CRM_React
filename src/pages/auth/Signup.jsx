@@ -30,3 +30,20 @@ function Signup() {
 }
 
 export default Signup;
+
+
+
+// {
+// "name": "xyz",
+// "password": "$2b$11$bz7E05RVBbdYp87OPaoRueCEjj3PeYXbjrg.KT8WbokNBCZi1f7tW",
+// "email": "abhishek@gmail.com",
+// "clientName": "sanket",
+// "userType": "customer",
+// "userStatus": "approved",
+// "ticketsCreated": [],
+// "ticketsAssigned": [],
+// "_id": "64f97714840f26f2c8628c09",
+// "createdAt": "2023-09-07T07:09:08.403Z",
+// "updatedAt": "2023-09-07T07:09:08.403Z",
+// "__v": 0
+// }
