@@ -24,9 +24,9 @@ function Login() {
   });
  }
 
- function onSubmit (){
+ async function onSubmit (){
    if(!loginDetails.email || !loginDetails.password) return;
-  const response = dispatch(login(loginDetails));
+  const response = await dispatch(login(loginDetails));
   console.log(response);
 
  }
