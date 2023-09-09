@@ -15,6 +15,7 @@ const authSlice = createSlice({
     initialState , 
     reducers : {},
     extraReducers : (builder) =>{
+
         builder.addCase (login.fulfilled , (state,action)=>{
              console.log(action.payload);
               if(!action.payload) return;
@@ -26,6 +27,7 @@ const authSlice = createSlice({
                localStorage.setItem("isLoggedIn", (action.payload?.data?.token != undefined));
                localStorage.setItem("data", JSON.stringify(action.payload.data?.userData));
                localStorage.setItem("token", action.payload?.data?.token);
+               
         });
         
     }
@@ -38,7 +40,7 @@ export const login = createAsyncThunk('/auth/login' , async (data)=>{
         return await response;
       }
       catch (error) {
-        console.log(error);
+        console.log(error,"error");
       }
 });
 
