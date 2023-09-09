@@ -10,9 +10,9 @@ function Routing() {
    <>
     <Routes>
         <Route path="/home" element={<Home/>}/>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/signin" element={<Signin/>}/>
-    </Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/" element={<Signin/>}/>
+    </Routes>  
    </>
   );
 }

@@ -27,7 +27,7 @@ const authSlice = createSlice({
                localStorage.setItem("isLoggedIn", (action.payload?.data?.token != undefined));
                localStorage.setItem("data", JSON.stringify(action.payload.data?.userData));
                localStorage.setItem("token", action.payload?.data?.token);
-               
+
         });
         
     }
@@ -44,5 +44,15 @@ export const login = createAsyncThunk('/auth/login' , async (data)=>{
       }
 });
 
+
+export const signup = createAsyncThunk('/auth/signup' , async (data)=>{
+  try {
+    const response = axiosInstance.post("auth/signup",data);
+    return await response;
+  }
+  catch (error) {
+    console.log(error,"error");
+  }
+});
 
 export default authSlice.reducer;

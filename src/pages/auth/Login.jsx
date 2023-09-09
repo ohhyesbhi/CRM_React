@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { login } from "../../Redux/slice/AuthSlice";
 
@@ -57,6 +58,10 @@ function Login() {
     
             <div className="flex justify-center card-actions justify-end">
             <button className="btn btn-active btn-accent mt-4" onClick={onSubmit}>Submit</button>
+            <p className="ml-6">
+              Dont have an account? 
+              <Link className="link link-warning" to="/" > signup instead </Link>
+            </p>
             </div>
           </div>
         </div>
