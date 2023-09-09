@@ -55,7 +55,7 @@ function Signup() {
 
  async function onSubmit (){
   setSignupdetails({
-    ...signupDetails ,  userStatus: (userType === "Customer") ? "approved" : "suspended" 
+    ...signupDetails ,  userStatus: (userType == "Customer") ? "approved" : "suspended" 
   });
   console.log(signupDetails);
   
@@ -66,6 +66,7 @@ function Signup() {
      !signupDetails.name ||
      !signupDetails.clientName
      ) return;
+
      console.log("inside onsubmit");
   const response = await dispatch(signup(signupDetails));
   console.log(response,"response");

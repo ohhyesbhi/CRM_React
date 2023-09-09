@@ -42,9 +42,9 @@ function Login() {
 
  if(response.payload){
           navigate("/home");
- }else{
-  resetLoginState();
  }
+  resetLoginState();
+
 
  }
   return (
