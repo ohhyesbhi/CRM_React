@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,21 +9,24 @@ import { logout } from "../Redux/slice/AuthSlice";
 
 function Homelayout({children}) {
 
-  function sidebarCheck(){
-   const sidebar = document.getElementById("my-drawer");
-   sidebar.checked = false; 
-  }
+    const dispatch = useDispatch();
+    const navigator = useNavigate();
+    const authState = useSelector((state)=>state.auth);
 
-  const dispatch = useDispatch();
-  const navigator = useNavigate();
+    function sidebarCheck(){
+      const sidebar = document.getElementById("my-drawer");
+      sidebar.checked = false; 
+    }
 
-  function onLogout(){
-    dispatch(logout());
-    navigator("/login");
-  }
+    function onLogout(){
+      dispatch(logout());
+      navigator("/login");
+    }
 
-  const authState = useSelector((state)=>state.auth);
 
+    useEffect(()=>{
+     if(!authState.isLoggedIn) navigator("/login");
+    },[]);
 
   return (
  <>
