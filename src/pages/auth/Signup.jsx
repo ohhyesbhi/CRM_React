@@ -8,17 +8,17 @@ function Signup() {
 
   
   const navigate = useNavigate();
-  const [userType,setUsertype] = useState("userType");  
+  const [userTypee,setUsertype] = useState("userType");  
    
  const dispatch = useDispatch();
 
  const [signupDetails,setSignupdetails] = useState({
-  email : "",
-  password : "",
   name : "",
-  usertypes : "",
+  password : "",
+  email : "",
+  clientName : "",
+  userType : "",
   userStatus : "",
-  clientName : ""
  });
 
  function nameChange(value){
@@ -47,22 +47,20 @@ function Signup() {
       email : "",
       password : "",
       name : "",
-      usertypes : "",
+      userType : "",
       userStatus : "",
       clientName : ""
      });
  }
 
  async function onSubmit (){
-  setSignupdetails({
-    ...signupDetails ,  userStatus: (userType == "Customer") ? "approved" : "suspended" 
-  });
+
   console.log(signupDetails);
   
    if(!signupDetails.email ||
      !signupDetails.password || 
      !signupDetails.userStatus || 
-     !signupDetails.usertypes || 
+     !signupDetails.userType || 
      !signupDetails.name ||
      !signupDetails.clientName
      ) return;
@@ -84,10 +82,9 @@ function handleUsertype(e){
  console.log(value);
  
  setSignupdetails({   
-  ...signupDetails , usertypes : value
+  ...signupDetails , userType : value , userStatus : (userTypee === "customer") ? "approved" : "suspended" 
    });
 
- 
  setUsertype(value);
   
  const dropdown = document.getElementById("dropdown");
@@ -130,11 +127,11 @@ function clientNamechange(value){
               />
             
               <details className="dropdown" id="dropdown">
-                 <summary className="m-1 btn bg-[black] ">{userType}</summary>
+                 <summary className="m-1 btn bg-[black] ">{userTypee}</summary>
                  <ul onClick={(e)=>handleUsertype(e)} className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                     <li><a>Customer</a></li>
-                     <li><a>Engineer</a></li>
-                     <li><a>Admin</a></li>
+                     <li><a>customer</a></li>
+                     <li><a>engineer</a></li>
+                     <li><a>admin</a></li>
                  </ul>
               </details>
           

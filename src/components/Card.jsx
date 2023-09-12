@@ -13,11 +13,11 @@ function Card({children,status = 50 , quantity = 50 , fontColor = "text-white" ,
 
      <div className="flex flex-row gap-8 justify-center w-full ">
           <div className={`text-6xl ${fontColor} font-semibold`}>
-            {status}
+           {quantity}
           </div>
 
           <div >
-            <div className={`radial-progress ${fontColor}`} style={{"--value":quantity,"--size":"5rem","--thickness": "7px"}}>{quantity}%</div> 
+            <div className={`radial-progress ${fontColor}`} style={{"--value":status,"--size":"5rem","--thickness": "7px"}}> {status}%</div> 
           </div> 
 
      </div>
