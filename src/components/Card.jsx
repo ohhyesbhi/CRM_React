@@ -1,9 +1,19 @@
+import { useNavigate } from "react-router-dom";
 
 
-function Card({children,status = 50 , quantity = 50 , fontColor = "text-white" , background = "bg-primary",borderColor = "border-y-orange-300"}) {
+function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text-white" , background = "bg-primary",borderColor = "border-y-orange-300"}) {
+  
+  const navigator = useNavigate();
+
+  function onClickCard(){
+         navigator(`/dashboard?status=${cardText}`);
+  }
+
   return (
  <>
-  <div className={`border-b-8 ${borderColor} w-64 h-52 ${background} rounded-md flex flex-col justify-start items-center py-8`}>
+  <div className={`border-b-8 ${borderColor} w-64 h-52 ${background} cursor-pointer rounded-md flex flex-col justify-start items-center py-8`}
+       onClick={()=>onClickCard()}
+  >
      
      <div className={`${fontColor} text-2xl mb-4`}>
        {children}

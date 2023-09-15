@@ -43,7 +43,7 @@ function Homelayout({children}) {
            <label htmlFor="my-drawer" className="drawer-overlay"></label>
                   <ul onClick={sidebarCheck} className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
                        {/* Sidebar content here */}
-                       <li><a>View all tickets</a></li>
+                       <li><Link to={"/home"}>Home</Link></li>
                        <li><Link to={"/dashboard"}>Dashboard</Link></li>
 
                        <div className=" flex absolute bottom-8 w-full">

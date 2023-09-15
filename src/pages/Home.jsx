@@ -21,38 +21,43 @@ return (
  <Homelayout>
    <div className="flex flex-row flex-wrap justify-around mt-10">
         
-        <Card status={ticketsState.ticketDistribution.open/ticketsState.ticketList.length }
-         quantity={ticketsState.ticketDistribution.open}
+        <Card status = {ticketsState.ticketDistribution.open/ticketsState.downloadedTickets.length }
+         quantity = {ticketsState.ticketDistribution.open}
+         cardText = "open"
         >
          <BsFillPencilFill className="inline"/><span className="ml-2">Open</span>
         </Card>
 
         <Card 
-         status={Math.floor((ticketsState.ticketDistribution.inProgress/ticketsState.ticketList.length)*100) }
-         quantity={ticketsState.ticketDistribution.inProgress}
-        background="bg-lime-300" fontColor="text-black" borderColor="border-y-fuchsia-400">
+         status = {Math.floor((ticketsState.ticketDistribution.inProgress/ticketsState.downloadedTickets.length)*100) }
+         quantity = {ticketsState.ticketDistribution.inProgress}
+         cardText = "inProgress"
+         background="bg-lime-300" fontColor="text-black" borderColor="border-y-fuchsia-400">
          <AiOutlineThunderbolt className="inline"/><span className="ml-2">Progress</span>
         </Card>
 
         <Card 
-         status={Math.floor((ticketsState.ticketDistribution.resolved/ticketsState.ticketList.length)*100) }
-         quantity={ticketsState.ticketDistribution.resolved}
+         status = {Math.floor((ticketsState.ticketDistribution.resolved/ticketsState.downloadedTickets.length)*100) }
+         quantity = {ticketsState.ticketDistribution.resolved}
+         cardText = "resolved"
         background="bg-gray-400" fontColor="text-black" borderColor="border-y-black-400">
          <GoIssueClosed className="inline"/><span className="ml-2">Resolved</span>
         </Card>
 
         
         <Card 
-         status={Math.floor((ticketsState.ticketDistribution.onHold/ticketsState.ticketList.length)*100)}
+         status={Math.floor((ticketsState.ticketDistribution.onHold/ticketsState.downloadedTickets.length)*100)}
          quantity={ticketsState.ticketDistribution.onHold}
+         cardText = "onHold"
         background="bg-fuchsia-400" fontColor="text-white" borderColor="border-y-lime-700">
          <ImBlocked className="inline"/><span className="ml-2">Onhold</span>
         </Card>
 
         <Card 
-         status={Math.floor((ticketsState.ticketDistribution.cancelled/ticketsState.ticketList.length)*100) }
+         status={Math.floor((ticketsState.ticketDistribution.cancelled/ticketsState.downloadedTickets.length)*100) }
          quantity={ticketsState.ticketDistribution.cancelled}
-        background="bg-fuchsia-400 mt-8" fontColor="text-white" borderColor="border-y-lime-700">
+         cardText = "cancelled"
+         background="bg-fuchsia-400 mt-8" fontColor="text-white" borderColor="border-y-lime-700">
          <ImBlocked className="inline"/><span className="ml-2">Cancelled</span>
         </Card>
    </div>

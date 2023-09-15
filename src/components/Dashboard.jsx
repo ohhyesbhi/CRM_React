@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // go GoIssueClosed
 // ai AiOutlineThunderbolt
 import {FiDownload} from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { usePDF } from 'react-to-pdf';
 
 import Useticket from "../hooks/Useticket";
@@ -19,6 +20,8 @@ function Dashboard() {
 },[response]);
 
 const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+
+
 
 
   return (
@@ -59,8 +62,9 @@ const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
 
   </table>
 </div>
-    
-</div>  
+
+</div>
+<Link to="/home"><p className="underline text-center mt-4"> Go back</p></Link>
 </Homelayout>
     </>
   );
