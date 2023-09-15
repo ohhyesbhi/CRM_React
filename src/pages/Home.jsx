@@ -1,34 +1,20 @@
 
 
-import { useEffect} from "react";
+
 import {AiOutlineThunderbolt} from "react-icons/ai";
 import {BsFillPencilFill } from "react-icons/bs";
 import {GoIssueClosed} from "react-icons/go";
 import {ImBlocked} from "react-icons/im";
-import { useDispatch, useSelector } from "react-redux";
 
 // go GoIssueClosed
 // ai AiOutlineThunderbolt
 import Card from "../components/Card";
+import Useticket from "../hooks/Useticket";
 import Homelayout from "../layouts/Homelayout";
-import { getAllTicketsforTheUser } from "../Redux/slice/TicketSlice";
-
 function Home() {
 
 
-  const authState = useSelector((state) => state.auth);
-  const ticketsState = useSelector((state) => state.tickets);
-  const dispatch = useDispatch();
-
-
-  async function loadTickets() {
-    const response = await dispatch(getAllTicketsforTheUser());
-    console.log(response.payload,"response");
-  }
-
-  useEffect(()=>{
-    loadTickets();
-  },[authState.token]);
+  const [ticketsState] = Useticket();
 
 return (
  <>

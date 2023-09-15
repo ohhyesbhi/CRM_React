@@ -1,46 +1,47 @@
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 // go GoIssueClosed
 // ai AiOutlineThunderbolt
-import { getAllTicketsforTheUser } from "../Redux/slice/TicketSlice";
+import {FiDownload} from "react-icons/fi";
+import { usePDF } from 'react-to-pdf';
 
+import Useticket from "../hooks/Useticket";
+import Homelayout from "../layouts/Homelayout";
 
 
 function Dashboard() {
-    const [array,setArray] = useState([]);
+  const [array,setArray] = useState([]);
   
-    const authState = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-  
-  
-    async function loadTickets() {
-      const response = await dispatch(getAllTicketsforTheUser());
-      setArray(response.payload.data.result);
-    }
-  
-    useEffect(()=>{
-      loadTickets();
-    },[authState.token]);
+  const [response] = Useticket();
+   
+  useEffect(()=>{
+  setArray(response.ticketList);
+},[response]);
+
+const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+
 
   return (
     <>
-    <p className="text-6xl text-center mt-7">All Tasks</p>
-<div className="flex justify-center mt-7">
+    <Homelayout>
+    <div className="flex  flex-row justify-center">
+    <p className="text-6xl text-center mt-6">All Tasks</p>
+      <FiDownload className=" text-4xl text-center mt-10 ml-4 cursor-pointer" onClick={()=> toPDF()}/>
+    </div>
+    <div className="flex justify-center mt-7">
     
-<div className="bg-gray-700 overflow-x-auto w-4/5 ">
-  <table className="element-to-print table">
+    <div className="bg-gray-700 overflow-x-auto w-4/5 ">
+      <table ref={targetRef} className="element-to-print table">
     {/* head */}
-    <thead>
-      <tr >
-        <th className="text-2xl text-center text-slate-900">id</th>
-        <th className="text-2xl text-center text-slate-900">Title</th>
-        <th className="text-2xl text-center text-slate-900">Description</th>
-        <th className="text-2xl text-center text-slate-900">Priority</th>
-        <th className="text-2xl text-center text-slate-900">Status</th>
-      </tr>
-    </thead>
+        <thead>
+          <tr >
+            <th className="text-2xl text-center text-slate-900">id</th>
+            <th className="text-2xl text-center text-slate-900">Title</th>
+            <th className="text-2xl text-center text-slate-900">Description</th>
+            <th className="text-2xl text-center text-slate-900">Priority</th>
+            <th className="text-2xl text-center text-slate-900">Status</th>
+          </tr>
+        </thead>
 
 {
   array.map((items)=>{
@@ -60,7 +61,7 @@ function Dashboard() {
 </div>
     
 </div>  
-
+</Homelayout>
     </>
   );
 }
