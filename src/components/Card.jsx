@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text-white" , background = "bg-primary",borderColor = "border-y-orange-300"}) {
+function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text-white" , background = "rgba(255, 99, 132, 0.2)"}) {
   
   const navigator = useNavigate();
 
@@ -11,8 +11,9 @@ function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text
 
   return (
  <>
-  <div className={`border-b-8 ${borderColor} w-64 h-52 ${background} cursor-pointer rounded-md flex flex-col justify-start items-center py-8`}
+  <div className={` mt-7 w-64 h-52  cursor-pointer rounded-md flex flex-col justify-start items-center py-8`}
        onClick={()=>onClickCard()}
+       style={{backgroundColor:background}}
   >
      
      <div className={`${fontColor} text-2xl mb-4`}>

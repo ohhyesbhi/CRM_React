@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { filterTickets,getAllTicketsforTheUser } from "../Redux/slice/TicketSlice";
 
 function Useticket(){
-    const authState = useSelector((state) => state.auth);
+  const authState = useSelector((state) => state.auth);
   const ticketsState = useSelector((state) => state.tickets);
   const dispatch = useDispatch();
 
@@ -13,6 +13,8 @@ function Useticket(){
 
 
   async function loadTickets() {
+    
+ console.log(ticketsState);
     if(ticketsState.downloadedTickets.length == 0 ){
       await dispatch(getAllTicketsforTheUser());         
     }
@@ -25,7 +27,7 @@ function Useticket(){
 
   useEffect(()=>{
     loadTickets();
-  },[ authState.token , searchParams.get("status") ]);
+  },[ authState.token , searchParams.get("status")]);
 
   return [ticketsState];
 }
