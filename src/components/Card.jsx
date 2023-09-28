@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text-white" , background = "rgba(255, 99, 132, 0.2)"}) {
+function Card({cardText,children,status = 0 , quantity = 50 , fontColor = "text-white" , background = "rgba(255, 99, 132, 0.2)"}) {
   
   const navigator = useNavigate();
 
@@ -28,7 +28,7 @@ function Card({cardText,children,status = 50 , quantity = 50 , fontColor = "text
           </div>
 
           <div >
-            <div className={`radial-progress ${fontColor}`} style={{"--value":status,"--size":"5rem","--thickness": "7px"}}> {status}%</div> 
+            <div className={`radial-progress ${fontColor}`} style={{"--value":status,"--size":"5rem","--thickness": "7px"}}> {status?status:0}%</div> 
           </div> 
 
      </div>

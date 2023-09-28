@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,9 @@ function Login() {
   email : "",
   password : ""
  });
+
+
+
 
  function emailChange(value){
   setLogindetails({
@@ -44,9 +48,10 @@ function Login() {
           navigate("/home");
  }
   resetLoginState();
-
-
  }
+
+
+
   return (
     <>
       <div className='flex justify-center w-full h-[95vh] items-center'> 
@@ -57,15 +62,24 @@ function Login() {
             <input type="password" placeholder="password" className="input input-bordered w-full max-w-xs" value={loginDetails.password} onChange={(e)=>passwordChange(e.target.value)}/>
     
             <div className="flex justify-center card-actions justify-end">
+           
             <button className="btn btn-active btn-accent mt-4" onClick={onSubmit}>Submit</button>
+           
             <p className="ml-6">
               Dont have an account? 
               <Link className="link link-warning" to="/" > signup instead </Link>
             </p>
+
+    
+           
             </div>
           </div>
         </div>
-      </div>  
+
+
+
+      </div> 
+       
     </>
   );
 }

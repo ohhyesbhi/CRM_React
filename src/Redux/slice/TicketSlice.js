@@ -18,13 +18,13 @@ const initialState = {
 export const getAllTicketsforTheUser = createAsyncThunk('tickets/getAllTicketsforTheUser',async()=>{
 
  try {
-    const response = axiosInstance.get("getMyAssignedTickets",{
+    const response =await axiosInstance.get("getMyAssignedTickets",{
         headers:{
             "x-access-token": localStorage.getItem('token')
         }
     });
 
-    return await response;
+    return response;
  } catch (error) {
     console.log(error);
  }
@@ -35,13 +35,19 @@ const ticketSlice = createSlice({
    initialState,
    reducers : {
     filterTickets : (state,action)=>{
-      console.log(action.payload);
-      state.ticketList =  state.downloadedTickets.filter((ticket)=> (ticket.status == action.payload) );
+      const arr = state.downloadedTickets.filter((ticket)=>(ticket != null));
+      state.ticketList =  arr.filter((ticket)=> (ticket.status == action.payload) );
+      console.log(state.ticketList,"nandini");
     }
    },
    extraReducers : (builder) =>{
          builder.addCase(getAllTicketsforTheUser.fulfilled,(state , action) =>{
+           const newArr = action.payload.data.result.filter((element)=>element != null);
+          action.payload.data.result = newArr;
+          
             if(!action?.payload?.data) return ;
+            state.ticketList = [];
+            state.downloadedTickets = [];
             state.ticketList = action?.payload?.data?.result;
             state.downloadedTickets = action?.payload?.data?.result ;
             const tickets = action?.payload?.data?.result;
@@ -52,8 +58,9 @@ const ticketSlice = createSlice({
                 onHold: 0,
                 cancelled: 0
             };
-            tickets.forEach(ticket=>{
+            tickets.forEach((ticket)=>{ 
                 state.ticketDistribution[ticket.status] =  state.ticketDistribution[ticket.status] + 1;
+                
             });
          } );
    }

@@ -23,7 +23,8 @@
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.15.0",
     "react-to-pdf": "^1.0.1",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

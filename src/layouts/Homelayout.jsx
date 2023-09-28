@@ -36,7 +36,7 @@ function Homelayout({children}) {
          <div className="drawer-content">
            {/* Page content here */}
            <label htmlFor="my-drawer" className="drawer-button">
-             <BsFillMenuButtonWideFill className="ml-4 mt-5 w-6 h-6 cursor-pointer"/>
+             <BsFillMenuButtonWideFill className="ml-4 mt-5 w-8 h-8 cursor-pointer"/>
            </label>
          </div> 
          <div className="drawer-side">
@@ -45,6 +45,7 @@ function Homelayout({children}) {
                        {/* Sidebar content here */}
                        <li><Link to={"/home"}>Home</Link></li>
                        <li><Link to={"/dashboard"}>Dashboard</Link></li>
+                       <li><Link to={"/createticket"}>Create Ticket</Link></li>
 
                        <div className=" flex absolute bottom-8 w-full">
                         <div className="flex flex-row justify-center gap-4 w-4/5 ">
