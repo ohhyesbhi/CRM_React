@@ -37,7 +37,6 @@ const ticketSlice = createSlice({
     filterTickets : (state,action)=>{
       const arr = state.downloadedTickets.filter((ticket)=>(ticket != null));
       state.ticketList =  arr.filter((ticket)=> (ticket.status == action.payload) );
-      console.log(state.ticketList,"nandini");
     }
    },
    extraReducers : (builder) =>{
@@ -46,8 +45,6 @@ const ticketSlice = createSlice({
           action.payload.data.result = newArr;
           
             if(!action?.payload?.data) return ;
-            state.ticketList = [];
-            state.downloadedTickets = [];
             state.ticketList = action?.payload?.data?.result;
             state.downloadedTickets = action?.payload?.data?.result ;
             const tickets = action?.payload?.data?.result;

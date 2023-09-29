@@ -13,6 +13,9 @@ function Homelayout({children}) {
     const navigator = useNavigate();
     const authState = useSelector((state)=>state.auth);
 
+    const role = useSelector((state)=>state.auth.role);
+    console.log(role);
+
     function sidebarCheck(){
       const sidebar = document.getElementById("my-drawer");
       sidebar.checked = false; 
@@ -45,6 +48,9 @@ function Homelayout({children}) {
                        {/* Sidebar content here */}
                        <li><Link to={"/home"}>Home</Link></li>
                        <li><Link to={"/dashboard"}>Dashboard</Link></li>
+                       {
+                        (role == "admin")? <li><Link to={"/users"}>All users</Link></li> : <></>
+                       }
                        <li><Link to={"/createticket"}>Create Ticket</Link></li>
 
                        <div className=" flex absolute bottom-8 w-full">

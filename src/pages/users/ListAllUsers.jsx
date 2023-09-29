@@ -2,13 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { Link } from 'react-router-dom';
 
+import UserDetailsModal from '../../components/UserDetailsModal';
 import axiosInstance from '../../helpers/axiosInstance';
 import Homelayout from '../../layouts/Homelayout';
 
 function ListAllUsers() {
 
     const [userList , setUserList] = useState([]);
+    const [userData,setUserData] = useState({
+        id:"",
+        email:"",
+        name:"",
+        status:"",
+        type:""
+    });
 
     useEffect(()=>{
            loadUsers();
@@ -58,11 +67,28 @@ const columns = [
     <>
     <Homelayout>
         <div className=' mt-6 mb-6'>
+            <p className='text-center text-5xl underline mb-6'>List of all users</p>
            <DataTable
+            onRowClicked={(item)=>{
+                document.getElementById('my_modal_1').showModal();
+            console.log(item);
+            setUserData({
+                id:item._id,
+               email : item.email,
+               name : item.name,
+               status : item.userStatus,
+               type : item.userType
+            });
+            }
+            }
             columns={columns}
             data={userList}
           />
+           
         </div>   
+
+          <UserDetailsModal userId = {userData.id} userEmail = {userData.email} userName = { userData.name} userStatus={userData.status} userType={userData.type}   />
+       <Link to="/home"><p className='text-center mb-4 underline cursor-pointer'>Go back</p></Link> 
     </Homelayout>
     
     </>
