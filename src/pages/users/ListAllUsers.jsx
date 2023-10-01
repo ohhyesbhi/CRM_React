@@ -87,8 +87,9 @@ const columns = [
           />
            
         </div>   
-
+        <dialog id="my_modal_1" className="modal">
           <UserDetailsModal resetTable={loadusers} key={userData._id} clientName = {userData.clientName} userid = {userData._id} userEmail = {userData.email} userName = { userData.name} userstatus={userData.userStatus} userType={userData.userType}   />
+        </dialog>
        <Link to="/home"><p className='text-center mb-4 underline cursor-pointer'>Go back</p></Link> 
     </Homelayout>
     
