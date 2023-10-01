@@ -13,24 +13,26 @@ function Useticket(){
   const [searchParams] = useSearchParams();
 
   async function loadTickets() {
-   console.log(authState.role);
-    if(ticketsState.downloadedTickets.length == 0) {
-             await dispatch(getAllTicketsforTheUser());
+   console.log(searchParams.get("status"),"status");
+    
+
+     if(ticketsState.downloadedTickets.length == 0) {
+      await dispatch(getAllTicketsforTheUser());
      }
-    else if(searchParams.get("status")) {
-           dispatch(filterTickets(searchParams.get("status")));
-     } 
-    else{
-              await dispatch(getAllTicketsforTheUser());
-     } 
+     if(searchParams.get("status") == null){
+      await dispatch(getAllTicketsforTheUser());
+     }
+     if(searchParams.get("status") != null) {
+      dispatch(filterTickets(searchParams.get("status")));
+      } 
+    // else{
+    //           await dispatch(getAllTicketsforTheUser());
+    //  } 
   }
 
   useEffect(()=>{
     if(authState.role != "admin"){
     loadTickets();
-    }
-    if(authState.role == "admin"){
-      console.log(ticketsState);
     }
   },[authState.token, searchParams.get("status")]);
 
