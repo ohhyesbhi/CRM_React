@@ -7,29 +7,31 @@ import { filterTickets,getAllTicketsforTheUser } from "../Redux/slice/TicketSlic
 function Useticket(){
   const authState = useSelector((state) => state.auth);
   const ticketsState = useSelector((state) => state.tickets);
- 
+
   const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
-console.log(authState.token,"token");
 
   async function loadTickets() {
+   console.log(authState.role);
     if(ticketsState.downloadedTickets.length == 0) {
-   const response =   await dispatch(getAllTicketsforTheUser());
-   console.log("response",response);
-  }
-  if(searchParams.get("status")) {
-  const response =  dispatch(filterTickets(searchParams.get("status")));
-  console.log(response,"browser");
-}  else{
-  await dispatch(getAllTicketsforTheUser());
-}  
-// const response =   await dispatch(getAllTicketsforTheUser());
-// console.log("response",response);
+             await dispatch(getAllTicketsforTheUser());
+     }
+    else if(searchParams.get("status")) {
+           dispatch(filterTickets(searchParams.get("status")));
+     } 
+    else{
+              await dispatch(getAllTicketsforTheUser());
+     } 
   }
 
   useEffect(()=>{
+    if(authState.role != "admin"){
     loadTickets();
+    }
+    if(authState.role == "admin"){
+      console.log(ticketsState);
+    }
   },[authState.token, searchParams.get("status")]);
 
   return [ticketsState];

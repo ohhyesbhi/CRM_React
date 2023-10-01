@@ -1,24 +1,61 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-function UserDetailsModal({userId,userEmail,userName,userStatus,userType}) {
+import axiosInstance from "../helpers/axiosInstance";
+
+function UserDetailsModal({resetTable,clientName,userid,userEmail,userName,userstatus,userType}) {
    
-    const [status,setStatus] = useState("");
+    const [status,setStatus] = useState(userstatus);
+    const [users,setUsers] = useState({});
+
     useEffect(()=>{
-          setStatus(userStatus);
-    },[userId]);
-    function handleUsertype(e){    
-        setStatus(e.target.textContent);     
+          setUsers({
+            _id : userid,
+            name : userName,
+            email:userEmail,
+            userType:userType,
+            userStatus:userstatus,
+            clearName:clientName
+      });
+    },[users.userStatus]);
+
+  async function handleUsertype(e){    
+        setStatus(e.target.textContent);
         const dropdown = document.getElementById("dropdown");
         dropdown.open = false;
+
+        try {
+          const response = await axiosInstance.patch("user/updateUser",{
+            userId : userid ,
+            updates : {
+                ...users,
+                userStatus : e.target.textContent
+            }
+        }, {
+          headers:{
+            "x-access-token": localStorage.getItem('token')
+        } 
+       }
+        );
+        if(response?.data?.result){
+          toast.success("updated status successfully");
+          resetTable();
+        }
+        console.log(response,"reponse");
+        } catch (error) {
+          console.log(error);
+        }
+        
+
        } 
   return (
    <>
      <dialog id="my_modal_1" className="modal">
                <div className="modal-box">
                  <h3 className="font-bold text-2xl underline text-center">User Data</h3>
-                 <p className="py-4">Id : <span className=' text-yellow-200'>{userId}</span></p>
-                 <p className="py-4">Email : <span className=' text-yellow-200'>{userEmail}</span></p>
-                 <p className="py-4">Name : <span className=' text-yellow-200'>{userName}</span></p>
+                 <p className="py-4">Id : <span className=' text-yellow-200'>{users._is}</span></p>
+                 <p className="py-4">Email : <span className=' text-yellow-200'>{users.email}</span></p>
+                 <p className="py-4">Name : <span className=' text-yellow-200'>{users.name}</span></p>
                  <p className="py-4">UserStatus : <span className=' text-yellow-200'>
                 
                     <details className="dropdown" id="dropdown">

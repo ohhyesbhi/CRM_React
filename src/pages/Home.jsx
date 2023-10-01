@@ -7,6 +7,7 @@ import {BsFillPencilFill } from "react-icons/bs";
 import {GoIssueClosed} from "react-icons/go";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {ImBlocked} from "react-icons/im";
+import { useSelector } from 'react-redux';
 
 // go GoIssueClosed
 // ai AiOutlineThunderbolt
@@ -18,11 +19,10 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale,PointEl
 
 
 function Home() {
-  const [ticketsState] = Useticket();
-console.log(ticketsState,"ticketstate");
 
+  const [ticketsState] = Useticket();
   // pie chart implementation
-  
+  const auth = useSelector((state)=>state.auth);
   
    const data = {
     labels: ['open', 'progress', 'resolved', 'onhold', 'cancelled'],
@@ -104,8 +104,8 @@ console.log(ticketsState,"ticketstate");
   useEffect(()=>{
        lineChartTicketsData();
        barChartTicketsData();
+       
   },[ticketsState]);
-
 
 
   function lineChartTicketsData(){
@@ -274,24 +274,24 @@ setonholdTicket(onHoldTicketsData);
  <Homelayout>
    <div className="flex flex-row flex-wrap justify-around mt-10">
         
-        <Card status = {Math.round((ticketsState.ticketDistribution.open/ticketsState.downloadedTickets.length)*100) }
-         quantity = {ticketsState.ticketDistribution.open}
+        <Card status = {auth.role != "admin" && Math.round((ticketsState.ticketDistribution.open/ticketsState.downloadedTickets.length)*100) }
+         quantity = {auth.role != "admin" && ticketsState.ticketDistribution.open}
          cardText = "open"
         >
          <BsFillPencilFill className="inline"/><span className="ml-2">Open</span>
         </Card>
 
         <Card 
-         status = {Math.round((ticketsState.ticketDistribution.inProgress/ticketsState.downloadedTickets.length)*100) }
-         quantity = {ticketsState.ticketDistribution.inProgress}
+         status = {auth.role != "admin" && Math.round((ticketsState.ticketDistribution.inProgress/ticketsState.downloadedTickets.length)*100) }
+         quantity = {auth.role != "admin" && ticketsState.ticketDistribution.inProgress}
          cardText = "inProgress"
          background='rgba(54, 162, 235, 0.2)' fontColor="text-white" borderColor="border-y-fuchsia-400">
          <AiOutlineThunderbolt className="inline"/><span className="ml-2">Progress</span>
         </Card>
 
         <Card 
-         status = {Math.round((ticketsState.ticketDistribution.resolved/ticketsState.downloadedTickets.length)*100) }
-         quantity = {ticketsState.ticketDistribution.resolved}
+         status = {auth.role != "admin" && Math.round((ticketsState.ticketDistribution.resolved/ticketsState.downloadedTickets.length)*100) }
+         quantity = {auth.role != "admin" && ticketsState.ticketDistribution.resolved}
          cardText = "resolved"
         background="rgba(255, 206, 86, 0.2)" fontColor="text-white" borderColor="border-y-black">
          <GoIssueClosed className="inline"/><span className="ml-2">Resolved</span>
@@ -299,16 +299,16 @@ setonholdTicket(onHoldTicketsData);
 
         
         <Card 
-         status={Math.round((ticketsState.ticketDistribution.onHold/ticketsState.downloadedTickets.length)*100)}
-         quantity={ticketsState.ticketDistribution.onHold}
+         status={auth.role != "admin" && Math.round((ticketsState.ticketDistribution.onHold/ticketsState.downloadedTickets.length)*100)}
+         quantity={auth.role != "admin" && ticketsState.ticketDistribution.onHold}
          cardText = "onHold"
         background="rgba(75, 192, 192, 0.2)" fontColor="text-white" borderColor="border-y-lime-200">
          <HiOutlineDotsCircleHorizontal className="inline"/><span className="ml-2">Onhold</span>
         </Card>
 
         <Card 
-         status={Math.round((ticketsState.ticketDistribution.cancelled/ticketsState.downloadedTickets.length)*100) }
-         quantity={ticketsState.ticketDistribution.cancelled}
+         status={auth.role != "admin" && Math.round((ticketsState.ticketDistribution.cancelled/ticketsState.downloadedTickets.length)*100) }
+         quantity={auth.role != "admin" && ticketsState.ticketDistribution.cancelled}
          cardText = "cancelled"
          background="rgba(153, 102, 255, 0.2)" fontColor="text-white"  borderColor="border-y-lime-700 mt-8">
          <ImBlocked className="inline"/><span className="ml-2">Cancelled</span>
@@ -320,31 +320,43 @@ setonholdTicket(onHoldTicketsData);
 
 
                        {/* pie chart implementation */}
-                    <div className='flex justify-around flex-col items-center border h-[80vh] border-white mt-24 cursor-pointer  hover:bg-black'>
+                       {
+                        auth.role != "admin" &&
+                       <div className='flex justify-around flex-col items-center border h-[80vh] border-white mt-24 cursor-pointer  hover:bg-black'>
                             <p className='text-4xl underline'>Pie chart</p>
                             <div className='w-[27rem]'>
                                 <Pie className='text-center' style={{width:"430px",height:"430px"}} data={data} />
                             </div>
-
-                    </div>
+                       </div>
+                       }
+                    
         
                       {/* line chart implementation */}
-                    <div className='flex justify-around flex-col items-center border h-[80vh]  border-white mt-24 cursor-pointer  hover:bg-black'>
+                      {
+                            auth.role != "admin" &&
+                            <div className='flex justify-around flex-col items-center border h-[80vh]  border-white mt-24 cursor-pointer  hover:bg-black'>
+                         
                             <p className='text-4xl underline'>Line chart</p>
                             <div className='w-[60rem]'>
                                 <Line data={lineChartData} />       
                              </div>
 
                     </div>
-                    
-                     {/* Bar chart implementation */}
+                            
+                           }
+                   
+                   {
+                    auth.role != "admin" &&
                     <div  className='flex justify-around flex-col items-center border h-[80vh] border-white mt-24 mb-5 cursor-pointer   hover:bg-black'>
                              <p className='text-4xl underline'>Bar chart</p>
                              <div className='w-[60rem]'>
                                 <Bar data = {barChartData}/>
                              </div>
-
-</div>
+                    </div>
+                   }
+                    
+                     {/* Bar chart implementation */}
+                    
       
         
      

@@ -18,12 +18,11 @@ const initialState = {
 export const getAllTicketsforTheUser = createAsyncThunk('tickets/getAllTicketsforTheUser',async()=>{
 
  try {
-    const response =await axiosInstance.get("getMyAssignedTickets",{
+    const response = await axiosInstance.get("getMyAssignedTickets",{
         headers:{
             "x-access-token": localStorage.getItem('token')
         }
     });
-
     return response;
  } catch (error) {
     console.log(error);

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-function Card({cardText,children,status = 0 , quantity = 50 , fontColor = "text-white" , background = "rgba(255, 99, 132, 0.2)"}) {
+function Card({cardText,children,status = 0 , quantity = 0 , fontColor = "text-white" , background = "rgba(255, 99, 132, 0.2)"}) {
   
   const navigator = useNavigate();
 
@@ -24,7 +24,7 @@ function Card({cardText,children,status = 0 , quantity = 50 , fontColor = "text-
 
      <div className="flex flex-row gap-8 justify-center w-full ">
           <div className={`text-6xl ${fontColor} font-semibold`}>
-           {quantity}
+           {quantity ? quantity : 0}
           </div>
 
           <div >

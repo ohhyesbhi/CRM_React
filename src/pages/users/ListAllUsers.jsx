@@ -10,28 +10,30 @@ import Homelayout from '../../layouts/Homelayout';
 
 function ListAllUsers() {
 
-    const [userList , setUserList] = useState([]);
+    const [userlist , setuserlist] = useState([]);
     const [userData,setUserData] = useState({
         id:"",
         email:"",
         name:"",
-        status:"",
-        type:""
+        userStatus:"",
+        userType:"",
+        clientName : ""
     });
 
     useEffect(()=>{
-           loadUsers();
+           loadusers();
     },[]);
 
-  async function loadUsers(){
-         const response = await axiosInstance.get("/users",
-         {
-            headers:{
-            "x-access-token": localStorage.getItem('token')
-        }
-    }
-         );
-         setUserList(response.data.result);
+  async function loadusers(){
+          const response = await axiosInstance.get("/users",
+          {
+             headers:{
+             "x-access-token": localStorage.getItem('token')
+         }
+     }
+          );
+          console.log(response);
+          setuserlist(response.data.result);
     }
 
     // preparing of columns
@@ -39,7 +41,7 @@ function ListAllUsers() {
     
 const columns = [
     {
-        name: 'User Id',
+        name: 'User id',
         selector: row => row._id,
     },
     {
@@ -53,13 +55,10 @@ const columns = [
     {
         name: 'Status',
         selector: row => row.userStatus,
-        sortable:true,
     },
     {
         name: 'Type',
         selector: row => row.userType,
-        sortable:true,
-        reorder : true
     },
 ];
 
@@ -69,25 +68,27 @@ const columns = [
         <div className=' mt-6 mb-6'>
             <p className='text-center text-5xl underline mb-6'>List of all users</p>
            <DataTable
+            showLabel={true}
             onRowClicked={(item)=>{
                 document.getElementById('my_modal_1').showModal();
             console.log(item);
-            setUserData({
-                id:item._id,
+            setUserData({ ...userData,
+                _id:item._id,
                email : item.email,
                name : item.name,
-               status : item.userStatus,
-               type : item.userType
+               userStatus : item.userStatus,
+               userType : item.userType,
+               clientName : item.clientName
             });
             }
             }
             columns={columns}
-            data={userList}
+            data={userlist}
           />
            
         </div>   
 
-          <UserDetailsModal userId = {userData.id} userEmail = {userData.email} userName = { userData.name} userStatus={userData.status} userType={userData.type}   />
+          <UserDetailsModal resetTable={loadusers} key={userData._id} clientName = {userData.clientName} userid = {userData._id} userEmail = {userData.email} userName = { userData.name} userstatus={userData.userStatus} userType={userData.userType}   />
        <Link to="/home"><p className='text-center mb-4 underline cursor-pointer'>Go back</p></Link> 
     </Homelayout>
     
